@@ -3,13 +3,22 @@ const fs = require("fs");
 const path = require("path");
 const port = process.env.PORT || 8080;
 const host = process.env.HOST || "localhost";
+const filePath = path.join(__dirname, "norrisDb.json")
 
-const fetchData = () => {
-    fetch(`https://api.chucknorris.io/jokes/random`)
+const fetchData = async () => {
+    return fetch(`https://api.chucknorris.io/jokes/random`)
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => {
+        return data.value
+    })
 };
-fetchData()
+
+fetchData().then(randomQuote => {
+    console.log(randomQuote)
+})
+
+
+
 
 const server = http.createServer((req, res) => {
     res.writeHead(200, { "Content-Type": "text/html" });
